@@ -1,0 +1,49 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Decarbonizing Kazakhstan means replacing the backbone of its power grid</title>
+<style>
+body{font-family:Georgia,'Times New Roman',serif;margin:0;color:#3E4543;background:#F6F7F3}
+main{max-width:920px;margin:0 auto;padding:24px 16px}
+h1{font-size:24px;margin:0 0 4px}p.sub{margin:0 0 16px;color:#5D6F55;font-family:system-ui,sans-serif;font-size:14px}
+svg{width:100%;height:auto;font-family:system-ui,sans-serif;background:#fff;border:1px solid #C9CFC4;border-radius:6px}p.lede{font:16px/1.45 system-ui,sans-serif;margin:0 0 6px}
+.legend span{display:inline-flex;align-items:center;margin-right:14px;font:13px system-ui,sans-serif}
+.legend i{width:12px;height:12px;display:inline-block;margin-right:5px;border-radius:2px}
+#tip{position:fixed;pointer-events:none;background:#fff;border:1px solid #5D6F55;border-radius:6px;padding:8px 10px;font:12px system-ui,sans-serif;display:none;box-shadow:0 2px 8px #0002}
+.note{font:13px/1.5 system-ui,sans-serif;color:#3E4543;margin-top:10px}
+h2{font-size:18px;margin:32px 0 4px}
+table{border-collapse:collapse;font:13px system-ui,sans-serif;width:100%}td,th{border-bottom:1px solid #C9CFC4;padding:6px 8px;text-align:left}
+</style></head><body><main>
+<h1>Decarbonizing Kazakhstan means replacing the backbone of its power grid</h1>
+<p class="lede">Coal supplied about 58% of Kazakhstan’s electricity in 2025 (Ember), but other sources say 65% (UNECE, 2022) or 75% (Samruk-Energy, 2024).</p>
+<p class="sub">Electricity generation by source, 2015–2025, TWh. The dashed line is the 15% renewables goal for 2030 (it excludes large hydropower). Source: Ember.</p>
+<div class="legend" id="legend"></div>
+<svg id="c" viewBox="0 0 900 430"></svg><div id="tip"></div>
+</main>
+<script>
+const D={"years": [2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025], "series": {"Coal": [64.52, 62.78, 70.57, 75.76, 75.0, 73.65, 73.33, 72.29, 69.02, 69.4, 72.54], "Gas": [15.87, 17.32, 19.92, 19.65, 19.57, 22.21, 25.66, 27.2, 29.59, 31.14, 33.69], "Other fossil": [1.81, 2.56, 0.99, 0.96, 0.81, 0.84, 3.5, 0.68, 0.52, 0.51, 0.53], "Hydro": [9.27, 11.62, 11.21, 10.38, 9.99, 9.66, 9.21, 9.2, 8.8, 11.28, 10.44], "Wind": [0.13, 0.28, 0.34, 0.38, 0.71, 1.03, 1.75, 2.31, 3.78, 4.45, 5.08], "Solar": [0.05, 0.09, 0.09, 0.14, 0.39, 1.24, 1.63, 1.77, 1.87, 1.89, 2.08], "Bioenergy": [0.0, 0.0, 0.0, 0.0, 0.0, 0.01, 0.0, 0.0, 0.0, 0.0, 0.0], "Total generation": [91.64, 94.64, 103.13, 107.27, 106.48, 108.63, 115.08, 113.45, 113.58, 118.67, 124.37]}, "demand": [91.65, 93.39, 98.76, 103.79, 106.0, 107.87, 114.51, 114.9, 115.66, 121.08, 125.52]};
+const cols={Coal:'#3E4543','Other fossil':'#C9CFC4',Gas:'#5D6F55',Hydro:'#9FB08F',Wind:'#E3E9DA',Solar:'url(#hat)',Bioenergy:'#FFFFFF'};
+const order=['Coal','Other fossil','Gas','Hydro','Wind','Solar'];
+const W=900,H=430,m={l:50,r:110,t:20,b:40},iw=W-m.l-m.r,ih=H-m.t-m.b;
+const n=D.years.length,x=i=>m.l+i*iw/(n-1);
+const tot=D.series['Total generation'];const ymax=140,y=v=>m.t+ih-v/ymax*ih;
+let s='<defs><pattern id="hat" width="6" height="6" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="6" height="6" fill="#E3E9DA"/><line x1="0" y1="0" x2="0" y2="6" stroke="#3E4543" stroke-width="2"/></pattern></defs>';
+for(let t=0;t<=140;t+=20)s+=`<line x1="${m.l}" x2="${W-m.r}" y1="${y(t)}" y2="${y(t)}" stroke="#C9CFC4"/><text x="${m.l-8}" y="${y(t)+4}" text-anchor="end" font-size="11" fill="#5D6F55">${t}</text>`;
+D.years.forEach((yr,i)=>{if(i%2==0||i==n-1)s+=`<text x="${x(i)}" y="${H-14}" text-anchor="middle" font-size="11" fill="#5D6F55">${yr}</text>`});
+let base=new Array(n).fill(0);
+order.forEach(k=>{const top=D.series[k].map((v,i)=>base[i]+v);
+ let p='M'+top.map((v,i)=>`${x(i)},${y(v)}`).join('L')+'L'+base.map((v,i)=>`${x(n-1-i)},${y(base[n-1-i])}`).join('L')+'Z';
+ s+=`<path d="${p}" fill="${cols[k]}" stroke="#fff" stroke-width="1"/>`;base=top;});
+{let acc=0,L=[];order.forEach(k=>{const v=D.series[k][n-1];if(v>1){L.push([k,y(acc+v/2),v])}acc+=v});L.reverse();for(let i=1;i<L.length;i++)if(L[i][1]-L[i-1][1]<13)L[i][1]=L[i-1][1]+13;L.forEach(l=>{s+=`<text x="${W-m.r+8}" y="${l[1]+4}" font-size="11.5" font-weight="700" fill="#3E4543">${l[0]} ${l[2].toFixed(1)}</text>`})}
+const ws=D.series.Wind.map((v,i)=>v+D.series.Solar[i]), wsh=ws.map((v,i)=>v+D.series.Hydro[i]);
+const sh=a=>a.map((v,i)=>v/tot[i]*100);
+s+=`<line x1="${m.l}" x2="${W-m.r}" y1="${y(0.15*tot[n-1])}" y2="${y(0.15*tot[n-1])}" stroke="#E3E9DA" stroke-dasharray="6 4" stroke-width="2.5"/><rect x="${W-m.r-290}" y="${y(0.15*tot[n-1])-22}" width="290" height="17" rx="3" fill="#fff" stroke="#3E4543"/><text x="${W-m.r-6}" y="${y(0.15*tot[n-1])-9}" text-anchor="end" font-size="11" fill="#3E4543">15% of 2025 generation (2030 goal, excl. large hydro)</text>`;
+s+=`<text x="${m.l}" y="12" font-size="11" fill="#5D6F55">TWh</text><line id="hv" y1="${m.t}" y2="${m.t+ih}" stroke="#000" opacity="0"/>`;
+const c=document.getElementById('c');c.innerHTML=s;
+document.getElementById('legend').innerHTML=order.slice().reverse().map(k=>`<span><i style="background:${k=='Solar'?'repeating-linear-gradient(45deg,#E3E9DA 0 3px,#3E4543 3px 5px)':cols[k]};border:1px solid #3E4543"></i>${k}</span>`).join('');
+const tip=document.getElementById('tip'),hv=document.getElementById('hv');
+c.addEventListener('mousemove',e=>{const r=c.getBoundingClientRect();const px=(e.clientX-r.left)/r.width*W;let i=Math.round((px-m.l)/iw*(n-1));if(i<0||i>=n){return}
+ hv.setAttribute('x1',x(i));hv.setAttribute('x2',x(i));hv.setAttribute('opacity','.4');
+ tip.style.display='block';tip.style.left=(e.clientX+14)+'px';tip.style.top=(e.clientY+14)+'px';
+ tip.innerHTML=`<b>${D.years[i]}</b> · total ${tot[i].toFixed(1)} TWh<br>`+order.slice().reverse().map(k=>`${k}: ${D.series[k][i].toFixed(1)} TWh (${(D.series[k][i]/tot[i]*100).toFixed(1)}%)`).join('<br>')+`<br>Demand: ${D.demand[i].toFixed(1)} TWh`});
+c.addEventListener('mouseleave',()=>{tip.style.display='none';hv.setAttribute('opacity','0')});
+
+</script><script>(function(){var f=location.pathname.split('/').pop();function ph(){try{parent.postMessage({fig:f,h:document.body.offsetHeight+2},'*')}catch(e){}}addEventListener('load',ph);addEventListener('resize',ph);if(window.ResizeObserver)new ResizeObserver(ph).observe(document.body);setInterval(ph,1500)})()</script></body></html>
