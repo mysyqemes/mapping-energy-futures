@@ -1,0 +1,33 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Mining Jobs Pay More Than the Regional Average in Nearly Every Region</title>
+<style>
+body{font-family:Georgia,'Times New Roman',serif;margin:0;color:#3E4543;background:#F6F7F3}
+main{max-width:900px;margin:0 auto;padding:24px 16px}
+h1{font-size:24px;margin:0 0 6px}p.lede{font:16px/1.45 system-ui,sans-serif;margin:0 0 12px}
+svg{width:100%;height:auto;font-family:system-ui,sans-serif;background:#fff;border:1px solid #C9CFC4;border-radius:6px}
+svg.ic{width:14px;height:14px;border:0;background:none;vertical-align:-2px;display:inline-block}
+.key{font:13px system-ui,sans-serif;margin:0 0 8px}.key span{margin-right:18px}
+.note{font:12.5px/1.5 system-ui,sans-serif;color:#5D6F55;margin-top:8px}
+#tip{position:fixed;pointer-events:none;background:#fff;border:1px solid #5D6F55;border-radius:6px;padding:8px 10px;font:12px/1.45 system-ui,sans-serif;display:none;box-shadow:0 2px 8px #0003}
+</style></head><body><main>
+<h1>Mining Jobs Pay More Than the Regional Average in Nearly Every Region</h1>
+<p class="lede">Monthly wage in 2025, tenge. The number on the right shows how many times higher the mining wage is.</p>
+<div class="key"><span><svg class="ic"><circle cx="7" cy="7" r="5" fill="#fff" stroke="#3E4543" stroke-width="2"/></svg> Typical job (median)</span><span><svg class="ic"><circle cx="7" cy="7" r="6" fill="#3E4543"/></svg> Mining job (median)</span></div>
+<svg id="a" viewBox="0 0 900 590"></svg>
+<p class="note">Source: Bureau of National Statistics. Median = the wage of the worker in the middle.</p>
+<div id="tip"></div>
+</main>
+<script>
+const D={"Abay": [289910, 603585], "Akmola": [297468, 526042], "Aktobe": [308920, 503493], "Almaty": [294517, 416786], "Atyrau": [367936, 1375000], "West Kazakhstan": [272988, 1037990], "Zhambyl": [281690, 456118], "Zhetysu": [265753, 525000], "Karagandy": [332680, 570387], "Kostanay": [299870, 522038], "Kyzylorda": [295704, 521683], "Mangystau": [374050, 1091631], "Pavlodar": [341607, 450681], "North Kazakhstan": [251107, 505000], "Turkestan": [261028, 477929], "Ulytau": [457339, 460625], "East Kazakhstan": [316601, 424044], "Astana (city)": [386678, 560192], "Almaty (city)": [377899, 446675], "Shymkent (city)": [273905, 615000]},INK='#3E4543',GR='#C9CFC4',MOSS='#5D6F55';
+const nm={'Almaty (city)':'Almaty city','Astana (city)':'Astana','Shymkent (city)':'Shymkent','Almaty':'Almaty oblast','Karagandy':'Karaganda oblast','Zhetysu':'Jetisu oblast'};
+const fmt=x=>Math.round(x).toLocaleString('en-US');
+const R=Object.keys(D).filter(k=>D[k][0]&&D[k][1]).map(k=>({k,a:D[k][0],m:D[k][1]})).sort((x,y)=>y.m/y.a-x.m/x.a);
+const A=document.getElementById('a'),tip=document.getElementById('tip');
+const x0=200,x1=760,xm=1500000,X=v=>x0+v/xm*(x1-x0),rh=27,T=30;let s='';
+for(let g=0;g<=1500000;g+=500000)s+=`<line x1="${X(g)}" x2="${X(g)}" y1="${T-6}" y2="${T+R.length*rh}" stroke="${GR}"/><text x="${X(g)}" y="${T-12}" text-anchor="middle" font-size="11" fill="${MOSS}">${g?(g/1e6).toFixed(1)+'M':'0'}</text>`;
+R.forEach((r,i)=>{const y=T+i*rh+rh/2;
+ s+=`<g class="row" data-i="${i}"><rect x="0" y="${y-rh/2}" width="900" height="${rh}" fill="${i%2?'#fff':'#F6F7F3'}"/><text x="${x0-12}" y="${y+4}" text-anchor="end" font-size="12.5" fill="${INK}">${nm[r.k]||r.k}</text><line x1="${X(Math.min(r.a,r.m))}" x2="${X(Math.max(r.a,r.m))}" y1="${y}" y2="${y}" stroke="${GR}" stroke-width="3"/><circle cx="${X(r.a)}" cy="${y}" r="5" fill="#fff" stroke="${INK}" stroke-width="2"/><circle cx="${X(r.m)}" cy="${y}" r="6" fill="${INK}"/><text x="840" y="${y+4}" text-anchor="end" font-size="13" font-weight="700" fill="${INK}">${(r.m/r.a).toFixed(1)}×</text></g>`});
+A.innerHTML=s;
+A.addEventListener('mousemove',ev=>{const g=ev.target.closest('.row');if(!g)return tip.style.display='none';const r=R[g.dataset.i];tip.style.display='block';tip.style.left=Math.min(ev.clientX+14,innerWidth-240)+'px';tip.style.top=(ev.clientY+14)+'px';tip.innerHTML=`<b>${nm[r.k]||r.k}</b><br>Typical job: ${fmt(r.a)}<br>Mining job: ${fmt(r.m)}`});
+A.addEventListener('mouseleave',()=>tip.style.display='none');
+</script><script>(function(){var f=location.pathname.split('/').pop();function ph(){try{parent.postMessage({fig:f,h:document.body.offsetHeight+2},'*')}catch(e){}}addEventListener('load',ph);addEventListener('resize',ph);if(window.ResizeObserver)new ResizeObserver(ph).observe(document.body);setInterval(ph,1500)})()</script></body></html>

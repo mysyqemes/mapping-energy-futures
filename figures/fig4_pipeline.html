@@ -1,0 +1,46 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>AI suggests, local experts decide</title>
+<style>
+body{font-family:Georgia,'Times New Roman',serif;margin:0;color:#3E4543;background:#F6F7F3}p.lede{font:16px/1.45 system-ui,sans-serif;margin:0 0 6px}
+main{max-width:1000px;margin:0 auto;padding:24px 16px}
+h1{font-size:24px;margin:0 0 4px}p.sub{margin:0 0 14px;color:#5D6F55;font:14px/1.5 system-ui,sans-serif}
+svg{width:100%;height:auto;font-family:system-ui,sans-serif;background:#fff;border:1px solid #C9CFC4;border-radius:6px}
+.note{font:13px/1.5 system-ui,sans-serif;color:#3E4543;margin-top:10px}
+.box{cursor:pointer}.box:hover rect{stroke:#3E4543;stroke-width:3.5}
+#d{font:13px/1.5 system-ui,sans-serif;background:#fff;border:1px solid #C9CFC4;border-radius:6px;padding:12px 14px;margin-top:10px;min-height:48px}
+</style></head><body><main>
+<h1>AI suggests, local experts decide</h1>
+<p class="lede">Drawings stay in Kazakhstan, humans write the codebook, and only aggregated results are published.</p>
+<p class="sub">How drawings of city energy futures become findings. Light green steps are done by people, the orange step by the vision-language model (VLM), and the dark bar marks conditions that apply to the whole process. Click any step.</p>
+<svg id="s" viewBox="0 0 1000 560"></svg>
+<div id="d">Click a step for details.</div>
+<p class="note">Draft built from the project’s working conditions (local open-weight model, nothing identifiable leaving Kazakhstan, no automated emotion inference, humans write the codebook, pilot first, aggregate-only publication, consent that names AI processing). Please check each step against your own design before it goes on the site.</p>
+</main>
+<script>
+const NS='http://www.w3.org/2000/svg',s=document.getElementById('s');
+const steps=[
+['1','Recruit and consent','people','Participants in about 12 cities, across five city types, are recruited with local partners. The consent form says plainly that an AI model will help process drawings.'],
+['2','Draw and caption','people','Each participant draws their city’s energy future in 2050 and writes a short caption, in Kazakh or Russian.'],
+['3','Store locally','people','Drawings and captions stay on servers in Kazakhstan. Identifiable images and raw audio never leave the country.'],
+['4','Write the codebook','people','Local coders write the codebook themselves (themes such as who benefits, what energy looks like, who is missing), and refine it on a small pilot set first.'],
+['5','VLM suggests codes','ai','A local open-weight vision-language model suggests codes for each drawing and caption. It does not infer emotions or judge people.'],
+['6','Coders review','people','Local coders check every suggestion, overrule where it is wrong and record disagreements. Where model and coders diverge, the coders’ reading counts.'],
+['7','Aggregate and publish','people','Results are published only in aggregate, by city type, with the agreement rate between model and coders shown openly.']];
+const col={people:['#E3E9DA','#5D6F55'],ai:['#F3E1D6','#9A4F2B']};
+let t='';const x0=40,w=116,gap=16,y1=140;
+steps.forEach((st,i)=>{const x=x0+i*(w+gap);const c=col[st[2]];
+ const yy=st[2]=='ai'?y1+90:y1;
+ t+=`<g class="box" data-i="${i}"><rect x="${x}" y="${yy}" width="${w}" height="110" rx="10" fill="${c[0]}" stroke="${c[1]}" stroke-width="1.8"/><circle cx="${x+20}" cy="${yy+22}" r="13" fill="${c[1]}"/><text x="${x+20}" y="${yy+27}" text-anchor="middle" font-size="13" font-weight="700" fill="#fff">${st[0]}</text><text x="${x+w/2}" y="${yy+62}" text-anchor="middle" font-size="13" font-weight="600" fill="#3E4543">${st[1].split(' ').slice(0,2).join(' ')}</text><text x="${x+w/2}" y="${yy+80}" text-anchor="middle" font-size="13" font-weight="600" fill="#3E4543">${st[1].split(' ').slice(2).join(' ')}</text></g>`;
+ if(i<steps.length-1){const nx=x0+(i+1)*(w+gap),ny=steps[i+1][2]=='ai'?y1+90:y1;t+=`<path d="M${x+w},${yy+55} C${x+w+gap/2+6},${yy+55} ${nx-gap/2-6},${ny+55} ${nx},${ny+55}" fill="none" stroke="#5D6F55" stroke-width="2" marker-end="url(#a)"/>`}});
+t=`<defs><marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0L10,5L0,10z" fill="#5D6F55"/></marker></defs>`+
+`<text x="40" y="40" font-size="13" fill="#5D6F55" font-weight="700">PEOPLE</text><text x="40" y="58" font-size="13" fill="#9A4F2B" font-weight="700">AI MODEL (suggests only)</text><rect x="14" y="30" width="12" height="12" fill="#E3E9DA" stroke="#5D6F55"/><rect x="14" y="48" width="12" height="12" fill="#F3E1D6" stroke="#9A4F2B"/>`+t;
+// feedback loop 6 -> 4
+const xa=x0+5*(w+gap)+w/2,xb=x0+3*(w+gap)+w/2;
+t+=`<path d="M${xa},${y1+110} C${xa},${y1+300} ${xb},${y1+300} ${xb},${y1+110}" fill="none" stroke="#5D6F55" stroke-width="2" stroke-dasharray="6 4" marker-end="url(#a)"/><text x="${(xa+xb)/2}" y="${y1+268}" text-anchor="middle" font-size="12" fill="#5D6F55">disagreements improve the codebook</text>`;
+// pilot gate
+t+=`<rect x="${x0+3*(w+gap)-8}" y="${y1-30}" width="${3*(w+gap)+w-4}" height="20" rx="4" fill="#fff" stroke="#5D6F55" stroke-dasharray="4 3"/><text x="${x0+3*(w+gap)+((3*(w+gap)+w)/2)}" y="${y1-16}" text-anchor="middle" font-size="12" fill="#5D6F55">pilot gate: scale up only if coders and model agree well enough</text>`;
+// conditions bar
+t+=`<rect x="40" y="470" width="920" height="64" rx="8" fill="#3E4543" stroke="#3E4543"/><text x="500" y="494" text-anchor="middle" font-size="13" font-weight="700" fill="#E3E9DA">Conditions that apply to every step</text><text x="500" y="516" text-anchor="middle" font-size="11.5" fill="#E3E9DA">Local open-weight model · nothing identifiable leaves Kazakhstan · no automated emotion inference · humans own the codebook · aggregate-only publication</text>`;
+s.innerHTML=t;
+s.addEventListener('click',e=>{const b=e.target.closest('.box');if(!b)return;const st=steps[b.dataset.i];document.getElementById('d').innerHTML=`<b>Step ${st[0]}: ${st[1]}</b> (${st[2]=='ai'?'AI model':'people'})<br>${st[3]}`});
+</script><script>(function(){var f=location.pathname.split('/').pop();function ph(){try{parent.postMessage({fig:f,h:document.body.offsetHeight+2},'*')}catch(e){}}addEventListener('load',ph);addEventListener('resize',ph);if(window.ResizeObserver)new ResizeObserver(ph).observe(document.body);setInterval(ph,1500)})()</script></body></html>

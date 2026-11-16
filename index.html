@@ -1,0 +1,71 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Mapping Energy Futures</title>
+<style>
+:root{--ink:#3E4543;--moss:#5D6F55;--sage:#9FB08F;--tint:#E3E9DA;--bg:#F6F7F3;--line:#C9CFC4;--acc:#B7653D}
+*{box-sizing:border-box}html{scroll-behavior:smooth;scroll-padding-top:56px}
+body{margin:0;background:var(--bg);color:var(--ink);font:17px/1.6 Georgia,'Times New Roman',serif}
+nav{position:sticky;top:0;z-index:5;background:var(--bg);border-bottom:1px solid var(--line);font:14px system-ui,sans-serif}
+nav div{max-width:960px;margin:0 auto;padding:12px 16px;display:flex;gap:18px;flex-wrap:wrap}
+nav a{color:var(--moss);text-decoration:none;font-weight:600}nav a:hover{color:var(--ink);text-decoration:underline}
+header,section{max-width:960px;margin:0 auto;padding:28px 16px}
+header{padding-top:44px}
+h1{font-size:40px;line-height:1.15;margin:0 0 12px}
+h2{font-size:26px;margin:0 0 10px}
+.q{font-size:20px;color:var(--ink);max-width:760px}
+.lab{font:600 13px system-ui,sans-serif;color:var(--moss);letter-spacing:.04em;text-transform:uppercase;margin:0 0 6px}
+.brief{background:#fff;border:1px solid var(--line);border-left:5px solid var(--moss);border-radius:6px;padding:16px 20px;margin-top:18px}
+.brief b.v{font-size:22px}
+.brief ul{margin:8px 0 0;padding-left:20px;font:15px/1.55 system-ui,sans-serif}
+iframe{width:100%;border:0;display:block;margin:10px 0 4px;background:var(--bg)}
+.todo{font:14px system-ui,sans-serif;background:#fff;border:1px dashed var(--acc);color:var(--ink);padding:10px 14px;border-radius:6px;margin:10px 0}
+.todo b{color:var(--acc)}
+.small{font:14px/1.55 system-ui,sans-serif;color:var(--moss)}
+footer{max-width:960px;margin:0 auto;padding:24px 16px 48px;font:13px system-ui,sans-serif;color:var(--moss);border-top:1px solid var(--line)}
+a{color:var(--moss)}
+</style></head><body>
+<nav><div><a href="#brief">In brief</a><a href="#problem">Problem</a><a href="#data">Data</a><a href="#gap">Research gap</a><a href="#solution">Solution</a><a href="#bill">The bill</a><a href="#verdict">Verdict</a><a href="#ai">AI statement</a></div></nav>
+<header id="brief">
+<p class="lab">PLS 519 final project</p>
+<h1>Mapping Energy Futures</h1>
+<p class="q">What do people in Kazakhstan’s coal and oil towns picture for 2050, and should AI be used to find out?</p>
+<div class="brief"><p class="lab">Verdict in one line</p><b class="v">Only under conditions.</b>
+<ul><li>A local, open-weight model.</li><li>No raw audio or identifiable images leave Kazakhstan.</li><li>No automated emotion inference.</li><li>Humans write the codebook.</li><li>Run a pilot first.</li><li>Publish aggregate results only.</li><li>Ethics-approved consent that names AI processing.</li></ul></div>
+</header>
+
+<section id="problem"><p class="lab">1 · The problem</p><h2>[Section heading]</h2>
+<div class="todo"><b>TODO (write in your own words):</b> who is affected, where, how it changes over time; the social-science question. Your notes, Section 1, have the facts and sources.</div>
+<iframe id="f_generation" data-fig="fig1_generation_mix.html" src="figures/fig1_generation_mix.html" title="Electricity generation by source in Kazakhstan, 2015 to 2025" height="900"></iframe>
+<iframe id="f_map" data-fig="fig2_oblast_map.html" src="figures/fig2_oblast_map.html" title="Map of mining and energy jobs by oblast" height="900"></iframe>
+<iframe id="f_wages" data-fig="fig3_wages.html" src="figures/fig3_wages.html" title="Mining wage compared with a typical wage, by region" height="700"></iframe>
+</section>
+
+<section id="data"><p class="lab">2 · Background and data</p><h2>[Section heading]</h2>
+<div class="todo"><b>TODO:</b> where the data lives, where it disagrees or goes quiet (coal share of electricity, mining jobs include metal ores, no direct measure of energy poverty, no data below oblast level).</div></section>
+
+<section id="gap"><p class="lab">3 · Current state of research</p><h2>[Section heading]</h2>
+<div class="todo"><b>TODO:</b> what is known, what is contested, and the gap the project speaks to.</div></section>
+
+<section id="solution"><p class="lab">4 · The AI-assisted solution</p><h2>[Section heading]</h2>
+<div class="todo"><b>TODO:</b> the system, who runs it, who it reaches, and the case studies.</div>
+<iframe id="f_pipeline" data-fig="fig4_pipeline.html" src="figures/fig4_pipeline.html" title="Pipeline: how drawings become findings" height="780"></iframe>
+</section>
+
+<section id="bill"><p class="lab">5 · What it would cost</p><h2>[Section heading]</h2>
+<div class="todo"><b>TODO:</b> environmental, economic, labour, governance and data-ethics costs.</div></section>
+
+<section id="verdict"><p class="lab">6 · Verdict</p><h2>Only under conditions</h2>
+<div class="todo"><b>TODO:</b> argue the verdict from the bill, and own the limitations.</div></section>
+
+<section id="ai"><p class="lab">AI transparency statement</p><h2>What AI contributed</h2>
+<div class="todo"><b>DRAFT written by Claude. Check every line and rewrite it in your own words.</b></div>
+<p class="small"><b>Contributed by Claude (Anthropic):</b> reading the data files and extracting the numbers used in the figures; writing the code for the four figures and for this page; suggesting figure titles (the map headline and pipeline title are Claude’s wording, adapted); proposing colour palettes and checking their contrast; flagging data problems (the unit of the household-income table, that “mining” includes metal ores, that regional wages are medians while national wages are averages); drafting edits to my notes.</p>
+<p class="small"><b>Accepted:</b> the oblast-level map with city dots standing in for oblasts; the profile panel on the map; the wage comparison; the pipeline diagram; palette A; the generation chart with the two measures of renewables progress.</p>
+<p class="small"><b>Rejected, and why:</b> a data-silence grid (its purpose was unclear); the household-income and “who can’t afford energy” rows (no direct measure of energy poverty, and the income unit was confusing); a three-panel wage figure (too complicated for a reader); the first palette (too dark and too green); titles that claimed more than the data show.</p>
+<p class="small"><b>My own work:</b> <span class="todo" style="display:inline;padding:2px 8px">TODO: the project idea, the case selection, the study design, the verdict and its conditions, the writing.</span></p>
+</section>
+
+<footer>Data: Bureau of National Statistics of Kazakhstan, Ember, IEA, Samruk-Energy, UNECE, World Bank. Full source list in the paper. Figures are interactive: hover or click.</footer>
+<script>
+addEventListener('message',function(e){var d=e.data;if(!d||!d.fig)return;document.querySelectorAll('iframe[data-fig]').forEach(function(f){if(f.dataset.fig===d.fig)f.style.height=d.h+'px'})});
+</script>
+</body></html>
