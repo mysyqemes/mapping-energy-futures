@@ -1,6 +1,6 @@
 <!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Mapping Energy Futures</title>
-<style>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700;9..144,900&family=Inter:wght@400;600;700&display=swap" rel="stylesheet"><style>
 :root{--ink:#3E4543;--moss:#5D6F55;--sage:#9FB08F;--tint:#E3E9DA;--bg:#F6F7F3;--line:#C9CFC4;--acc:#B7653D}
 *{box-sizing:border-box}html{scroll-behavior:smooth;scroll-padding-top:56px}
 body{margin:0;background:var(--bg);color:var(--ink);font:17px/1.6 Georgia,'Times New Roman',serif}
@@ -77,15 +77,92 @@ section p,section li{max-width:760px}section li{margin:4px 0}
 .small{font:14px/1.55 system-ui,sans-serif;color:var(--moss)}
 footer{max-width:960px;margin:0 auto;padding:24px 16px 48px;font:13px system-ui,sans-serif;color:var(--moss);border-top:1px solid var(--line)}
 a{color:var(--moss)}
+
+/* ---- motion layer ---- */
+:root{--disp:'Fraunces',Georgia,serif;--sans:'Inter',system-ui,sans-serif;--mood:#5D6F55}
+body{font-family:var(--sans);font-size:17px;line-height:1.65}
+h1,h2,h3,.stat b,.tool h4,.res b,details.blk>summary,.brief b.v{font-family:var(--disp)}
+h1{font-weight:900;font-size:clamp(38px,7vw,68px);letter-spacing:-.02em;line-height:1.05;color:#fff}
+h2{font-weight:700;font-size:clamp(26px,4vw,38px);letter-spacing:-.01em;position:relative;padding-bottom:10px}
+h2::after{content:"";position:absolute;left:0;bottom:0;height:4px;width:64px;border-radius:2px;background:var(--mood);transition:width .8s cubic-bezier(.2,.8,.2,1),background .5s}
+section.in h2::after{width:180px}
+.lab{color:var(--mood);transition:color .5s}
+#progress{position:fixed;top:0;left:0;height:4px;width:0;background:linear-gradient(90deg,#9FB08F,#B7653D);z-index:20}
+nav{background:rgba(246,247,243,.92);backdrop-filter:blur(8px)}
+nav a{position:relative;padding:2px 0;text-decoration:none!important}
+nav a::after{content:"";position:absolute;left:0;right:0;bottom:-4px;height:3px;border-radius:2px;background:var(--acc);transform:scaleX(0);transition:transform .3s}
+nav a.on::after,nav a:hover::after{transform:scaleX(1)}nav a.on{color:var(--ink)}
+.hero{background:radial-gradient(1200px 500px at 80% -10%,#4b5d49 0,#2d3a31 55%,#232d27 100%);color:#E3E9DA;overflow:hidden}
+.hero header{padding-top:56px;padding-bottom:36px}
+.hero .lab{color:#9FB08F}.hero .q{color:#E3E9DA;font-size:clamp(18px,2.4vw,24px)}
+.hero .brief{background:rgba(255,255,255,.96);color:var(--ink);border-left-color:var(--acc)}
+.sketch{margin:22px 0 6px;position:relative}
+.sketch svg{width:100%;height:auto;display:block}
+.sketch .ln{fill:none;stroke:#E3E9DA;stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:1;stroke-dashoffset:1;animation:draw 2.2s ease forwards}
+.sketch .ac{stroke:#E39A6F}.sketch .gr{stroke:#9FB08F}
+@keyframes draw{to{stroke-dashoffset:0}}
+.sketch .coal,.sketch .wind{transition:opacity .9s}
+.sketch.t2050 .coal{opacity:.12}.sketch.today .wind{opacity:.12}
+.sketch .smoke circle{fill:none;stroke:#cfd6cb;stroke-width:2;animation:rise 4s linear infinite;opacity:0}
+.sketch .smoke circle:nth-child(2){animation-delay:1.3s}.sketch .smoke circle:nth-child(3){animation-delay:2.6s}
+@keyframes rise{0%{transform:translateY(0) scale(.5);opacity:0}15%{opacity:.8}100%{transform:translateY(-70px) scale(1.5);opacity:0}}
+.sketch.t2050 .smoke{display:none}
+.sketch .blades{transform-box:fill-box;transform-origin:center;animation:spin 5s linear infinite}
+.sketch .blades.b2{animation-duration:7s}.sketch .blades.b3{animation-duration:6s}
+@keyframes spin{to{transform:rotate(360deg)}}
+.sketch .sun{transition:opacity .9s,transform .9s}.sketch.today .sun{opacity:0;transform:translateY(20px)}
+.skbar{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-top:6px;font:13px var(--sans);color:#9FB08F}
+.skbar button{font:600 14px var(--sans);background:transparent;color:#E3E9DA;border:1.5px solid #9FB08F;border-radius:999px;padding:6px 16px;cursor:pointer;transition:.25s}
+.skbar button.on{background:#E3E9DA;color:#2d3a31;border-color:#E3E9DA}
+.skbar button:hover{transform:translateY(-2px)}
+.rv{opacity:0;transform:translateY(26px);transition:opacity .8s ease,transform .8s cubic-bezier(.2,.8,.2,1)}
+.rv.in{opacity:1;transform:none}
+.stat{transition:transform .25s,box-shadow .25s,border-color .5s;border-top-color:var(--mood)}
+.stat:hover{transform:translateY(-6px) rotate(-.4deg);box-shadow:0 12px 26px rgba(40,50,40,.16)}
+.stat b{font-size:clamp(30px,4.5vw,44px);font-weight:900;color:var(--mood)}.stat.acc b{color:#9A4F2B}
+.tool,.brief{transition:box-shadow .3s}.tool:hover{box-shadow:0 10px 26px rgba(40,50,40,.12)}
+details.blk{transition:background .3s;border-radius:8px;padding:12px 14px;margin:6px 0;border:1px solid var(--line);background:#fff}
+details.blk[open]{background:#fcfdfb}details.blk:hover{border-color:var(--mood)}
+details.blk>summary{transition:color .3s}details.blk>summary:hover{color:var(--mood)}
+details.blk>summary::before{display:inline-block;transition:transform .3s}
+details[open]>*:not(summary){animation:slide .45s cubic-bezier(.2,.8,.2,1)}
+@keyframes slide{from{opacity:0;transform:translateY(-10px)}to{opacity:1;transform:none}}
+details.more{transition:border-color .3s,background .3s}details.more:hover{border-color:var(--mood)}
+.tw tbody tr{transition:background .25s,transform .25s}.tw tbody tr:hover{background:var(--tint);transform:scale(1.005)}
+#verdict ol{list-style:none;counter-reset:c;padding:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(270px,1fr));gap:14px;max-width:none}
+#verdict ol li{counter-increment:c;background:#fff;border:1px solid var(--line);border-radius:10px;padding:16px 16px 14px 62px;position:relative;margin:0;max-width:none;transition:transform .25s,box-shadow .25s,border-color .3s;font-size:15.5px;line-height:1.5}
+#verdict ol li::before{content:counter(c);position:absolute;left:14px;top:14px;width:36px;height:36px;border-radius:50%;background:var(--mood);color:#fff;font:900 18px var(--disp);display:grid;place-items:center;transition:transform .4s}
+#verdict ol li:hover{transform:translateY(-5px);box-shadow:0 12px 26px rgba(40,50,40,.15);border-color:var(--mood)}
+#verdict ol li:hover::before{transform:rotate(360deg) scale(1.1)}
+.res{animation:pop .4s cubic-bezier(.2,.8,.2,1)}@keyframes pop{from{opacity:0;transform:scale(.96)}to{opacity:1;transform:none}}
+.btn{transition:.2s}.btn:hover{transform:translateY(-2px);box-shadow:0 4px 10px rgba(40,50,40,.15)}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.rv{opacity:1;transform:none}.sketch .ln{stroke-dashoffset:0}}
 </style></head><body>
 <nav><div><a href="#nutshell">In brief</a><a href="#problem">Problem</a><a href="#data">Data</a><a href="#research">Research</a><a href="#solution">Solution</a><a href="#cost">Costs</a><a href="#verdict">Verdict</a><a href="#ai">AI statement</a><a href="#refs">References</a></div></nav>
-<header id="brief">
+<div class="hero"><header id="brief">
 <p class="lab">PLS 519 final project</p>
 <h1>Mapping Energy Futures</h1>
 <p class="q">What do people in Kazakhstan’s coal and oil towns picture for 2050, and should AI be used to find out?</p>
+<div class="sketch today" id="sk"><svg viewBox="0 0 800 230" role="img" aria-label="Illustrative sketch of a city skyline: coal chimneys today, wind turbines and sun in a 2050 version">
+<path class="ln" pathLength="1" d="M10 200 H790"/>
+<g class="coal">
+<path class="ln ac" pathLength="1" d="M60 200 V120 H150 V200 M80 120 V80 H100 V120 M120 120 V60 H140 V120 M170 200 V150 H230 V200 M240 200 V135 H290 V200"/>
+<path class="ln" pathLength="1" d="M70 140 H90 M70 160 H90 M110 140 H130 M110 160 H130 M180 165 H200 M180 180 H200 M250 150 H270 M250 170 H270"/>
+<g class="smoke"><circle cx="90" cy="70" r="9"/><circle cx="90" cy="70" r="9"/><circle cx="130" cy="50" r="9"/></g>
+</g>
+<g class="sun"><circle class="ln ac" pathLength="1" cx="400" cy="70" r="26"/><path class="ln ac" pathLength="1" d="M400 28 V18 M400 112 V122 M358 70 H348 M442 70 H452 M370 40 L363 33 M430 100 L437 107 M430 40 L437 33 M370 100 L363 107"/></g>
+<g class="wind">
+<path class="ln gr" pathLength="1" d="M520 200 V110 M630 200 V90 M730 200 V120"/>
+<g class="blades"><path class="ln gr" pathLength="1" d="M520 110 V70 M520 110 L486 130 M520 110 L554 130"/></g>
+<g class="blades b2"><path class="ln gr" pathLength="1" d="M630 90 V45 M630 90 L591 112 M630 90 L669 112"/></g>
+<g class="blades b3"><path class="ln gr" pathLength="1" d="M730 120 V82 M730 120 L697 139 M730 120 L763 139"/></g>
+</g>
+<path class="ln" pathLength="1" d="M300 200 V170 H345 V200 M350 200 V145 H390 V200 M395 200 V160 H440 V200"/>
+</svg>
+<div class="skbar"><button class="on" data-s="today" type="button">Today</button><button data-s="t2050" type="button">2050</button><span>An illustrative sketch of the kind of drawing participants might make. Not a forecast.</span></div></div>
 <div class="brief"><p class="lab">Verdict in one line</p><b class="v">Only under conditions.</b>
 <ul><li>Process the data locally, inside Kazakhstan.</li><li>Use shared or rented in-country computing, not a new workstation.</li><li>The model describes; it does not interpret or infer.</li><li>Humans write the codebook and make every final decision.</li><li>A successful pilot first; otherwise human-only coding.</li><li>Consent, opt-out and ethics approval before fieldwork.</li></ul></div>
-</header>
+</header></div>
 <section id="nutshell"><p class="lab">1 · In brief</p><h2>In a nutshell</h2>
 <p>This project asks whether AI can help researchers understand how people in Kazakhstan’s coal, oil and other cities imagine their energy futures in 2050. The energy-transition context explains why these perspectives matter; the central question is whether an AI model can reliably analyse residents’ drawings without replacing human interpretation or introducing new biases.</p>
 <p>The proposed research would invite approximately 700 residents across 12 cities to draw what they imagine their city and its energy system will look like in 2050. Participants would add a short caption in Kazakh or Russian. A vision-language model (VLM) would assist with identifying visible elements in the drawings, while local human coders would review its suggestions and make the final coding decisions.</p>
@@ -261,5 +338,23 @@ R.className='res'+(no?' no':'');R.innerHTML='<b>'+t+'</b>'+d}})();</script>
 <footer>Data: Bureau of National Statistics of Kazakhstan, Ember, IEA, OECD, Samruk-Energy, UNECE. Full reference list above. Figures are interactive: hover or click.</footer>
 <script>
 addEventListener('message',function(e){var d=e.data;if(!d||!d.fig)return;document.querySelectorAll('iframe[data-fig]').forEach(function(f){if(f.dataset.fig===d.fig)f.style.height=d.h+'px'})});
+</script>
+<script>
+(function(){
+var bar=document.createElement('div');bar.id='progress';document.body.appendChild(bar);
+addEventListener('scroll',function(){var h=document.documentElement;bar.style.width=(h.scrollTop/(h.scrollHeight-h.clientHeight)*100)+'%'},{passive:true});
+var sk=document.getElementById('sk');
+document.querySelectorAll('.skbar button').forEach(function(b){b.addEventListener('click',function(){sk.className='sketch '+b.dataset.s;document.querySelectorAll('.skbar button').forEach(function(x){x.classList.toggle('on',x===b)})})});
+var mood={nutshell:'#5D6F55',problem:'#4a5350',data:'#B7653D',research:'#6f8a5f',solution:'#5D6F55',cost:'#B7653D',verdict:'#2f6f6a',ai:'#5D6F55',refs:'#4a5350'};
+var secs=[].slice.call(document.querySelectorAll('section[id]'));
+var links={};document.querySelectorAll('nav a').forEach(function(a){links[a.getAttribute('href').slice(1)]=a});
+secs.forEach(function(s){s.classList.add('rv');s.querySelectorAll('.stat,.tool,details.blk,figure,.tw,#verdict ol li').forEach(function(e,i){e.classList.add('rv');e.style.transitionDelay=(i%4*90)+'ms'})});
+var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');if(e.target.tagName==='SECTION')count(e.target);io.unobserve(e.target)}})},{threshold:.12});
+document.querySelectorAll('.rv').forEach(function(e){io.observe(e)});
+var io2=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){var id=e.target.id;document.documentElement.style.setProperty('--mood',mood[id]||'#5D6F55');for(var k in links)links[k].classList.toggle('on',k===id)}})},{rootMargin:'-45% 0px -50% 0px'});
+secs.forEach(function(s){io2.observe(s)});
+function count(sec){sec.querySelectorAll('.stat b').forEach(function(b){if(b.dataset.done)return;b.dataset.done=1;var t=b.textContent.trim();var m=t.match(/^(\d+(?:\.\d+)?)(.*)$/);if(!m||/[–\/→0-9]/.test(m[2]))return;var end=parseFloat(m[1]),dec=(m[1].split('.')[1]||'').length,suf=m[2],t0=null;
+function f(ts){if(!t0)t0=ts;var p=Math.min((ts-t0)/1200,1),e=1-Math.pow(1-p,3);b.textContent=(end*e).toFixed(dec)+suf;if(p<1)requestAnimationFrame(f);else b.textContent=t}requestAnimationFrame(f)})}
+})();
 </script>
 </body></html>
